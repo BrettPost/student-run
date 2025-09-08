@@ -3,6 +3,9 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --primaryColor: #442e70;
+  --secondaryColor: #adadad;
+  --titleSize: 64px;
 }
 
 @theme inline {
@@ -14,7 +17,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #442e70;
     --foreground: #ededed;
   }
 }
@@ -24,4 +27,21 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
   padding: 1rem;
+}
+
+h1 {
+  color: var(--foreground);
+  font-size: var(--titleSize);
+}
+
+button {
+  margin: 0.5rem;
+  padding: 0.5rem;
+  border: 2px solid var(--primaryColor);
+  border-radius: 2rem;
+}
+
+button:hover {
+  background-color: var(--primaryColor);
+  color: var(--background);
 }
