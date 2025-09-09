@@ -1,4 +1,5 @@
 import NewResourceModal from "../components/newResourceModal/newResourceModal";
+import StudentCard from "../components/StudentCard/studentCard";
 
 const students = [
   "Brett",
@@ -14,9 +15,7 @@ const allStudents = () => {
     <section>
       <h1>Students</h1>
       <NewResourceModal />
-      <ul>
-        {students.map((student, i) => <li key={i}>{student}</li>)}
-      </ul>
+      {students.map((student, i) => <article key={i}><StudentCard student={student}/></article>)}
     </section>
   )
 }

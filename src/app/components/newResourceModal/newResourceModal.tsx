@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Button, Dialog, DialogPanel, DialogTitle, Description } from '@headlessui/react';
 
 const NewResourceModal = () => {
-    let [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <>
