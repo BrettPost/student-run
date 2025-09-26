@@ -1,12 +1,13 @@
 import React from 'react'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
+import { Teacher } from "@/drizzle/schema/teacher";
 
-const classroomCard = (props: {classroom: string}) => {
+const classroomCard = (props: {teacher: Teacher}) => {
   return (
     <div>
         <Disclosure>
-            <DisclosureButton>{props.classroom}</DisclosureButton>
-            <DisclosurePanel>Welcome to the class</DisclosurePanel>
+            <DisclosureButton>{props.teacher.lastName}</DisclosureButton>
+            <DisclosurePanel>Welcome {props.teacher.firstName}'s class</DisclosurePanel>
         </Disclosure>
     </div>
   )
