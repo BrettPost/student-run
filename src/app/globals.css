@@ -5,8 +5,11 @@
   --foreground: #171717;
   --primaryColor: #442e70;
   --secondaryColor: #adadad;
+  --thirdColor: #b2fff9;
   --titleSize: 48px;
   --sectionSize: 40px;
+  --cardTitleSize: 28px;
+  --pageBodyPadding: 40px;
 }
 
 @theme inline {
@@ -16,12 +19,17 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #442e70;
     --foreground: #ededed;
+    --primaryColor: #b2fff9;
+    --secondaryColor: #adadad;
+    --thirdColor: #171717;
+    --titleSize: 48px;
+    --sectionSize: 40px;
   }
-}
+} */
 
 body {
   background: var(--background);
@@ -36,13 +44,13 @@ h1 {
 }
 
 button {
-  margin: 0.5rem;
-  padding: 0.5rem;
-  border: 2px solid var(--primaryColor);
-  border-radius: 2rem;
+  /* margin: 0.5rem; */
+  /* padding: 0.5rem; */
+  /* border: 2px solid var(--primaryColor); */
+  /* border-radius: 2rem; */
 }
 
-button:hover {
+/* button:hover {
   background-color: var(--primaryColor);
   color: var(--background);
-}
+} */

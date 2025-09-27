@@ -10,11 +10,17 @@ const db = drizzle(process.env.DATABASE_URL as string);
 const teachers = await db.select().from(teacher);
 
   return (
-    <section>
-      <h1>Classrooms</h1>
-      <NewResourceModal />
-      {teachers.map((teach) => <article key={teach.id}><ClassroomCard teacher={teach}/></article>)}
-    </section>
+    <main>
+        <section className="px-(--pageBodyPadding)">
+          <div className="flex justify-between mt-5 mb-20">
+            <h1>Classrooms</h1>
+            <NewResourceModal />
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-8 place-items-center">
+            {teachers.map((teach) => <article key={teach.id}><ClassroomCard teacher={teach}/></article>)}
+          </div>
+      </section>
+    </main>
   )
 }
 

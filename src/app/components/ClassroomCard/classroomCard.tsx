@@ -1,15 +1,16 @@
+'use client'
 import React from 'react'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { Teacher } from "@/drizzle/schema/teacher";
+import Link from "next/link";
 
 const classroomCard = (props: {teacher: Teacher}) => {
   return (
-    <div>
-        <Disclosure>
-            <DisclosureButton>{props.teacher.lastName}</DisclosureButton>
-            <DisclosurePanel>Welcome {props.teacher.firstName}'s class</DisclosurePanel>
-        </Disclosure>
-    </div>
+    <Link href='/classrooms/students'>
+      <div className='p-2 w-60 h-34 border-3 border-(--primaryColor) border-solid rounded-lg flex items-center justify-center hover:bg-(--primaryColor) hover:text-(--background)'>
+        <p className='text-(length:--cardTitleSize)'>{props.teacher.lastName}</p>
+      </div>
+    </Link>
   )
 }
 
