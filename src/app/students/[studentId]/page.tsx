@@ -6,21 +6,17 @@ import { drizzle } from 'drizzle-orm/node-postgres';
 import { eq } from 'drizzle-orm';
 
 const classroom = async ({params}: {
-    params: Promise<{ teacherId: string }>
+    params: Promise<{ studentId: string }>
 }) => {
-  const teacherId = (await params).teacherId;
+  const studentId = (await params).studentId;
   const db = drizzle(process.env.DATABASE_URL as string);
-  const students = await db.select().from(student).where(eq(student.teacherId, Number(teacherId)));
+  const currentStudent = await db.select().from(student).where(eq(student.id, Number(studentId))).then(rows => rows[0]);
 
   return (
     <main>
         <section className="px-(--pageBodyPadding)">
           <div className="flex justify-between mt-5 mb-20">
-            <h1>Classrooms</h1>
-            <NewResourceModal />
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-8 place-items-center">
-            {students.map((s) => <article key={s.id}><StudentCard student={s}/></article>)}
+            <h1>{currentStudent.firstName} {currentStudent.lastName}</h1>
           </div>
       </section>
     </main>

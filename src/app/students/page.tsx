@@ -1,16 +1,13 @@
-import React from 'react'
-import NewResourceModal from "../../components/newResourceModal/newResourceModal";
-import StudentCard from "../../components/StudentCard/studentCard";
+import NewResourceModal from "../components/newResourceModal/newResourceModal";
+import StudentCard from "../components/StudentCard/studentCard";
 import { student } from "@/drizzle/schema/student";
 import { drizzle } from 'drizzle-orm/node-postgres';
-import { eq } from 'drizzle-orm';
 
-const classroom = async ({params}: {
-    params: Promise<{ teacherId: string }>
-}) => {
-  const teacherId = (await params).teacherId;
-  const db = drizzle(process.env.DATABASE_URL as string);
-  const students = await db.select().from(student).where(eq(student.teacherId, Number(teacherId)));
+
+
+const allStudents = async () => {
+const db = drizzle(process.env.DATABASE_URL as string);
+const students = await db.select().from(student);
 
   return (
     <main>
@@ -27,4 +24,4 @@ const classroom = async ({params}: {
   )
 }
 
-export default classroom
+export default allStudents
