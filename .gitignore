@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+/.vs
+/src/StudentRun.API/.vs
+/src/StudentRun.API/StudentRun.API/bin/Debug/net9.0
+/src/StudentRun.API/StudentRun.API/obj
