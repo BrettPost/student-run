@@ -14,7 +14,7 @@ namespace StudentRun.Server.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
+        [HttpGet(Name = "GetTeacher")]
         public IEnumerable<Teacher> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new Teacher
