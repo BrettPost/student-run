@@ -1,0 +1,12 @@
+[
+  {
+    "Name": "Testing",
+    "Projects": [
+      {
+        "Path": "StudentRun.Server\\StudentRun.Server.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
+      }
+    ]
+  }
+]
