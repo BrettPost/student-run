@@ -43,3 +43,5 @@ next-env.d.ts
 /src/StudentRun.API/.vs
 /src/StudentRun.API/StudentRun.API/bin/Debug/net9.0
 /src/StudentRun.API/StudentRun.API/obj
+/StudentRun/.vs/StudentRun
+/StudentRun/StudentRun.Server/obj

@@ -1,6 +1,0 @@
-@StudentRun.API_HostAddress = http://localhost:5230
-
-GET {{StudentRun.API_HostAddress}}/teacher/
-Accept: application/json
-
-###

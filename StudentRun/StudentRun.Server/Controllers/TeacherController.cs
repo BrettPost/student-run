@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace StudentRun.API.Controllers
+namespace StudentRun.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class TeacherController : ControllerBase
     {
+
         private readonly ILogger<TeacherController> _logger;
 
         public TeacherController(ILogger<TeacherController> logger)
@@ -13,7 +14,7 @@ namespace StudentRun.API.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetTeachers")]
+        [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<Teacher> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new Teacher

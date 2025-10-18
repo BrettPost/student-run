@@ -1,4 +1,4 @@
-namespace StudentRun.API
+namespace StudentRun.Server
 {
     public class Teacher
     {
