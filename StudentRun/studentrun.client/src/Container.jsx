@@ -12,12 +12,6 @@ function Container() {
     const [students, setStudents] = useState([]);
     const [achievements, setAchievements] = useState([]);
 
-    useEffect(() => {
-        // Load initial data
-        //loadStudents();
-        //loadAchievements();
-    }, []);
-
     const teachers = useQuery({
         queryKey: ['teachers'],
         queryFn: () => fetch('/teacher').then((res) =>
