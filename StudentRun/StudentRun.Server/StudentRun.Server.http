@@ -1,6 +1,12 @@
-@StudentRun.Server_HostAddress = http://localhost:5281
+@StudentRun.Server_HostAddress = http://localhost:5000
 
-GET {{StudentRun.Server_HostAddress}}/teacher/
+GET {{StudentRun.Server_HostAddress}}/teacher
+Accept: application/json
+
+###
+
+@id=1
+GET {{StudentRun.Server_HostAddress}}/teacher/{{id}}/student
 Accept: application/json
 
 ###

@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using StudentRun.Server.Data;
+using StudentRun.Server.Models;
 
 namespace StudentRun.Server.Controllers
 {
@@ -8,23 +10,24 @@ namespace StudentRun.Server.Controllers
     {
 
         private readonly ILogger<TeacherController> _logger;
+        private readonly StudentRunContext _context;
 
-        public TeacherController(ILogger<TeacherController> logger)
+        public TeacherController(ILogger<TeacherController> logger, StudentRunContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
-        [HttpGet(Name = "GetTeacher")]
-        public IEnumerable<Teacher> Get()
+        [HttpGet("/teacher")]
+        public IEnumerable<Teacher> GetTeachers()
         {
-            return Enumerable.Range(1, 5).Select(index => new Teacher
-            {
-                Id = index,
-                FirstName = $"Brett - {index}",
-                LastName = $"Post - {index}",
-                Grade = index
-            })
-            .ToArray();
+            return _context.Teachers;
+        }
+
+        [HttpGet("/teacher/{id}/student")]
+        public IEnumerable<Student> GetStudents(int id)
+        {
+            return _context.Students.Where(s => s.TeacherId == id);
         }
     }
 }
