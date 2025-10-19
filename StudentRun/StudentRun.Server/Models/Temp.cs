@@ -1,6 +1,6 @@
-namespace StudentRun.Server
+namespace StudentRun.Server.Models
 {
-    public class Teacher
+    public class Temp
     {
         public long Id { get; set; }
         public string FirstName { get; set; } = string.Empty;

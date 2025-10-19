@@ -173,7 +173,7 @@ const ClassroomsPage = ({ teachers, onAddTeacher }) => {
               </div>
 
               <Link
-                to={`/classrooms/${teacher.id}/students`}
+                to={`/classrooms/${teacher.id}/student`}
                 className="mt-4 inline-flex items-center space-x-2 text-indigo-600 hover:text-indigo-700 font-semibold group"
               >
                 <span>View Students</span>

@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using StudentRun.Server.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,6 +8,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+// DB Context setup
+builder.Services.AddDbContext<StudentRunContext>(opt =>
+    opt.UseNpgsql(
+        builder.Configuration.GetConnectionString("StudentRunContext"),
+        o => o
+            .SetPostgresVersion(13, 0)));
+// Use if datetime gets complex .UseNodaTime()));
+//.MapEnum<Mood>("mood")));
+
 
 var app = builder.Build();
 
