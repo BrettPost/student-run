@@ -12,7 +12,8 @@ const StudentsPage = ({ teachers, students, onAddStudent }) => {
     grade: '',
   });
 
-  const teacher = teachers.find(t => t.id === parseInt(teacherId));
+    students.map((stu) => { console.log(stu.firstName) })
+    const teacher = teachers.find(t => t.id === parseInt(teacherId));
   const teacherStudents = students.filter(s => s.teacherId === parseInt(teacherId));
 
   const handleSubmit = (e) => {
