@@ -51,8 +51,8 @@ export default defineConfig({
     },
     server: {
         proxy: {
-            '^/teacher': {
-                target,
+            '/api': {
+                target: target,
                 secure: false
             }
         },

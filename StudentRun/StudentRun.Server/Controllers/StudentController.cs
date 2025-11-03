@@ -1,11 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StudentRun.Server.Data;
 using StudentRun.Server.Models;
+using StudentRun.Server.Models.DTOs;
 
 namespace StudentRun.Server.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class StudentController : ControllerBase
     {
 
@@ -18,10 +20,22 @@ namespace StudentRun.Server.Controllers
             _context = context;
         }
 
-        [HttpGet(Name = "Get")]
-        public IEnumerable<Student> Get(int id)
+        [HttpGet]
+        public async Task<ActionResult> Get()
         {
-            return _context.Students.Where(s => s.TeacherId == id);
+            var studentsDb = await _context.Students.ToListAsync();
+
+            if (studentsDb == null) { return NotFound(); }
+
+            var students = studentsDb.Select(s => new StudentDto()
+            {
+                FirstName = s.FirstName,
+                LastName = s.LastName,
+                Grade = s.Grade,
+                TeacherId = s.TeacherId,
+            });
+
+            return Ok(students);
         }
     }
 }

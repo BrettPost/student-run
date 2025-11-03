@@ -1,12 +1,17 @@
-@StudentRun.Server_HostAddress = http://localhost:5000
+@domain_Url = http://localhost:5000/api
 
-GET {{StudentRun.Server_HostAddress}}/teacher
+GET {{domain_Url}}/teacher
 Accept: application/json
 
 ###
 
 @id=1
-GET {{StudentRun.Server_HostAddress}}/teacher/{{id}}/student
+GET {{domain_Url}}/teacher/{{id}}/students
+Accept: application/json
+
+###
+
+GET {{domain_Url}}/student
 Accept: application/json
 
 ###
