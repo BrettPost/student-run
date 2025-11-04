@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace StudentRun.Server.Models;
+﻿namespace StudentRun.Server.Models;
 
 public partial class Student
 {
@@ -16,4 +13,8 @@ public partial class Student
     public long? TeacherId { get; set; }
 
     public virtual Teacher? Teacher { get; set; }
+
+    public virtual ICollection<StudentPrize> StudentPrizes { get; set; } = [];
+
+    public virtual ICollection<StudentRunMetric> StudentRunMetrics { get; set; } = [];
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace StudentRun.Server.Models;
+﻿namespace StudentRun.Server.Models;
 
 public partial class Teacher
 {
