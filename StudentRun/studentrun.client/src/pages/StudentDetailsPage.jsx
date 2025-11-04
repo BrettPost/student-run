@@ -75,7 +75,7 @@ const StudentDetailsPage = ({ students, teachers, onUpdateLaps }) => {
       {/* Header */}
       <div className="flex items-center space-x-4">
         <button
-          onClick={() => navigate(`/classrooms/${student.teacherId}/students`)}
+          onClick={() => navigate(`/classrooms/${student.teacherId}/student`)}
           className="p-2 text-gray-600 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
         >
           <ArrowLeft className="h-5 w-5" />

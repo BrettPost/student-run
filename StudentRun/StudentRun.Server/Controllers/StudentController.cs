@@ -29,6 +29,7 @@ namespace StudentRun.Server.Controllers
 
             var students = studentsDb.Select(s => new StudentDto()
             {
+                Id = s.Id,
                 FirstName = s.FirstName,
                 LastName = s.LastName,
                 Grade = s.Grade,
@@ -36,6 +37,25 @@ namespace StudentRun.Server.Controllers
             });
 
             return Ok(students);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult> Get(long id)
+        {
+            var studentDb = await _context.Students.FindAsync(id);
+
+            if (studentDb == null) { return NotFound(); }
+
+            StudentDto student = new()
+            {
+                Id = studentDb.Id,
+                FirstName = studentDb.FirstName,
+                LastName = studentDb.LastName,
+                Grade = studentDb.Grade,
+                TeacherId = studentDb.TeacherId,
+            };
+
+            return Ok(student);
         }
     }
 }

@@ -29,6 +29,7 @@ namespace StudentRun.Server.Controllers
 
             var teachers = teachersDb.Select(s => new TeacherDto()
             {
+                Id = s.Id,
                 FirstName = s.FirstName,
                 LastName = s.LastName,
                 Grade = s.Grade,
@@ -38,7 +39,7 @@ namespace StudentRun.Server.Controllers
         }
 
         [HttpGet("{id}/students")]
-        public async Task<ActionResult> GetStudents(int id)
+        public async Task<ActionResult> GetStudents(long id)
         {
             var teacher = await _context.Teachers
                 .Include(t => t.Students)
@@ -48,6 +49,7 @@ namespace StudentRun.Server.Controllers
 
             var students = teacher.Students.Select(s => new StudentDto()
             {
+                Id = s.Id,
                 FirstName = s.FirstName,
                 LastName = s.LastName,
                 Grade = s.Grade,

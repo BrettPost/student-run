@@ -6,11 +6,8 @@ import ClassroomsPage from './pages/ClassroomsPage';
 import StudentsPage from './pages/StudentsPage';
 import StudentDetailsPage from './pages/StudentDetailsPage';
 import ProgressPage from './pages/ProgressPage';
-//import { useState } from 'react';
 
 function Container() {
-    //const [students, setStudents] = useState([]);
-    //const [achievements, setAchievements] = useState([]);
 
     const teachers = useQuery({
         queryKey: ['teachers'],
@@ -19,42 +16,37 @@ function Container() {
             .catch(error => console.error('Error:', error))
     })
 
-    //const students = useQuery({
-    //    queryKey: ['students'],
-    //    queryFn: () => fetch('/api/student')
-    //        .then(res => res.json())
-    //        .catch(error => console.error('Error:', error))
-    //})
+    const students = useQuery({
+        queryKey: ['students'],
+        queryFn: () => fetch('/api/student')
+            .then(res => res.json())
+            .catch(err => console.error('Error:', err))
+    })
 
     if (teachers.isPending) {
-        return <span>Loading...</span>
+        return <span>Loading Teachers...</span>
     }
 
     if (teachers.isError) {
-        return <span>Error: {teachers.isError}</span>
+        return <span>Teacher Error: {teachers.isError.message}</span>
     }
 
-    //if (students.isPending) {
-    //    return <span>Loading...</span>
-    //}
+    if (students.isPending) {
+        return <span>Loading Students...</span>
+    }
 
-    //if (students.isError) {
-    //    return <span>Student Error: {students.isError.message}</span>
-    //}
+    if (students.isError) {
+        return <span>Student Error: {students.isError.message}</span>
+    }
 
     
 
-    //const loadStudents = async (id) => {
-    //    try {
-    //        const response = await fetch(`/teacher/${id}/student`);
-    //        if (response.ok) {
-    //            const data = await response.json();
-    //            setStudents(data);
-    //        }
-    //    } catch (error) {
-    //        console.error('Error loading students:', error);
-    //    }
-    //};
+    //const loadStudents = (id) => useQuery({
+    //    queryKey: [`studentsFromTeacher-${id}`],
+    //    queryFn: () => fetch(`/teacher/${id}/student`)
+    //        .then(res => res.json())
+    //        .catch(err => console.error(`Error: ${err}`))
+    //})
 
     //const loadAchievements = () => {
     //    // Mock achievements data
@@ -84,23 +76,12 @@ function Container() {
     };
 
     const addStudent = () => {
-        //const newStudent = {
-        //    id: students.length + 1,
-        //    ...studentData,
-        //    lapsCompleted: 0,
-        //    totalLaps: 10,
-        //};
-        //setStudents([...students, newStudent]);
+
     };
 
     const updateStudentLaps = () => {
-        //setStudents(students.map(student =>
-        //    student.id === studentId
-        //        ? { ...student, lapsCompleted: laps }
-        //        : student
-        //));
+
     };
-    console.log(addStudent + updateStudentLaps);
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -117,26 +98,26 @@ function Container() {
                             />
                         }
                     />
-                    {/*<Route*/}
-                    {/*    path="/classrooms/:teacherId/student"*/}
-                    {/*    element={*/}
-                    {/*        <StudentsPage*/}
-                    {/*            teachers={teachers.data}*/}
-                    {/*            students={students.data}*/}
-                    {/*            onAddStudent={addStudent}*/}
-                    {/*        />*/}
-                    {/*    }*/}
-                    {/*/>*/}
-                    {/*<Route*/}
-                    {/*    path="/students/:studentId"*/}
-                    {/*    element={*/}
-                    {/*        <StudentDetailsPage*/}
-                    {/*            students={students.data}*/}
-                    {/*            teachers={teachers.data}*/}
-                    {/*            onUpdateLaps={updateStudentLaps}*/}
-                    {/*        />*/}
-                    {/*    }*/}
-                    {/*/>*/}
+                    <Route
+                        path="/classrooms/:teacherId/student"
+                        element={
+                            <StudentsPage
+                                teachers={teachers.data}
+                                students={students.data}
+                                onAddStudent={addStudent}
+                            />
+                        }
+                    />
+                    <Route
+                        path="/students/:studentId"
+                        element={
+                            <StudentDetailsPage
+                                students={students.data}
+                                teachers={teachers.data}
+                                onUpdateLaps={updateStudentLaps}
+                            />
+                        }
+                    />
                     {/*<Route*/}
                     {/*    path="/progress"*/}
                     {/*    element={*/}
