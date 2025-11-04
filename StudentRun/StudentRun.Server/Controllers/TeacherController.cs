@@ -1,11 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StudentRun.Server.Data;
 using StudentRun.Server.Models;
+using StudentRun.Server.Models.DTOs;
 
 namespace StudentRun.Server.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class TeacherController : ControllerBase
     {
 
@@ -18,16 +20,45 @@ namespace StudentRun.Server.Controllers
             _context = context;
         }
 
-        [HttpGet("/teacher")]
-        public IEnumerable<Teacher> GetTeachers()
+        [HttpGet]
+        public async Task<ActionResult> Get()
         {
-            return _context.Teachers;
+            var teachersDb = await _context.Teachers.ToListAsync();
+
+            if (teachersDb == null) { return NotFound(); }
+
+            var teachers = teachersDb.Select(s => new TeacherDto()
+            {
+                Id = s.Id,
+                FirstName = s.FirstName,
+                LastName = s.LastName,
+                Grade = s.Grade,
+            });
+
+            return Ok(teachers);
         }
 
-        [HttpGet("/teacher/{id}/student")]
-        public IEnumerable<Student> GetStudents(int id)
+        [HttpGet("{id}/students")]
+        public async Task<ActionResult> GetStudents(long id)
         {
-            return _context.Students.Where(s => s.TeacherId == id);
+            var teacher = await _context.Teachers
+                .Include(t => t.Students)
+                .FirstOrDefaultAsync(t => t.Id == id);
+
+            if (teacher == null) { return NotFound(); }
+
+            var students = teacher.Students.Select(s => new StudentDto()
+            {
+                Id = s.Id,
+                FirstName = s.FirstName,
+                LastName = s.LastName,
+                Grade = s.Grade,
+                TeacherId = s.TeacherId,
+            });
+
+            return Ok(students);
         }
+
+        
     }
 }

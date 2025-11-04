@@ -13,5 +13,5 @@ public partial class Teacher
 
     public int? Grade { get; set; }
 
-    public virtual ICollection<Student> Students { get; set; } = new List<Student>();
+    public virtual ICollection<Student> Students { get; set; } = [];
 }
