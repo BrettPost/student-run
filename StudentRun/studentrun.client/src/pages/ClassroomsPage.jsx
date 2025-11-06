@@ -2,13 +2,17 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Plus, Users, GraduationCap, ArrowRight, Edit, Trash2 } from 'lucide-react';
 
-const ClassroomsPage = ({ teachers, onAddTeacher }) => {
+const ClassroomsPage = ({ teachers, students, onAddTeacher }) => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     grade: '',
   });
+
+    const getStudents = (teacherId) => {
+        return students.filter(s => s.teacherId === parseInt(teacherId)).length;
+    }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -148,7 +152,7 @@ const ClassroomsPage = ({ teachers, onAddTeacher }) => {
                     <h3 className="text-lg font-semibold text-gray-900">
                       {teacher.firstName} {teacher.lastName}
                     </h3>
-                    <p className="text-gray-600">{teacher.grade} Grade</p>
+                    <p className="text-gray-600">Grade {teacher.grade}</p>
                   </div>
                 </div>
                 <div className="flex space-x-2">
@@ -163,12 +167,8 @@ const ClassroomsPage = ({ teachers, onAddTeacher }) => {
 
               <div className="space-y-3">
                 <div className="flex items-center space-x-2 text-sm text-gray-600">
-                  <Users className="h-4 w-4" />
-                  <span>Students: 0</span>
-                </div>
-                <div className="flex items-center space-x-2 text-sm text-gray-600">
-                  <GraduationCap className="h-4 w-4" />
-                  <span>Classroom: {teacher.grade}</span>
+                          <Users className="h-4 w-4" />
+                          <span>Students: {getStudents(teacher.id)}</span>
                 </div>
               </div>
 

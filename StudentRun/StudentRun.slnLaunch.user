@@ -1,6 +1,6 @@
 [
   {
-    "Name": "Testing",
+    "Name": "Server",
     "Projects": [
       {
         "Path": "StudentRun.Server\\StudentRun.Server.csproj",

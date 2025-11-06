@@ -10,6 +10,12 @@
 
         public int? Grade { get; set; }
 
+        public int Laps { get; set; } = 0;
+
+        public double Miles { get; set; } = 0;
+
+        public DateTime JoinedDate { get; set; }
+
         public long? TeacherId { get; set; }
     }
 }

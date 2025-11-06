@@ -29,6 +29,13 @@ function Container() {
             .catch(err => console.error('Error:', err))
     })
 
+    const prizes = useQuery({
+        queryKey: ['prizes'],
+        queryFn: () => fetch('/api/prize')
+            .then(res => res.json())
+            .catch(err => console.error('Error:', err))
+    })
+
     if (teachers.isPending) {
         return <span>Loading Teachers...</span>
     }
@@ -45,7 +52,13 @@ function Container() {
         return <span>Student Error: {students.isError.message}</span>
     }
 
-    
+    if (prizes.isPending) {
+        return <span>Loading Prizes...</span>
+    }
+
+    if (prizes.isError) {
+        return <span>Prize Error: {prizes.isError.message}</span>
+    }
 
     //const loadStudents = (id) => useQuery({
     //    queryKey: [`studentsFromTeacher-${id}`],
@@ -84,12 +97,19 @@ function Container() {
             <Navigation />
             <main className="container mx-auto px-4 py-8">
                 <Routes>
-                    <Route path="/" element={<HomePage />} />
+                    <Route
+                        path="/"
+                        element={
+                            <HomePage
+                                students={students.data}
+                            />}
+                    />
                     <Route
                         path="/classrooms"
                         element={
                             <ClassroomsPage
                                 teachers={teachers.data}
+                                students={students.data}
                                 onAddTeacher={addTeacher}
                             />
                         }
@@ -120,9 +140,7 @@ function Container() {
                             <ProgressPage
                                 students={students.data}
                                 prizes={prizes.data}
-                                metrics={metrics.data}
                                 achievements={achievements}
-                                onUpdateAchievements={setAchievements}
                             />
                         }
                     />

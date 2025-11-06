@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Users, Trophy, BookOpen, Target, Award, TrendingUp } from 'lucide-react';
 
-const HomePage = () => {
+const HomePage = ({ students }) => {
   const features = [
     {
       icon: Users,
@@ -20,8 +20,8 @@ const HomePage = () => {
   ];
 
   const stats = [
-    { icon: BookOpen, label: 'Active Classrooms', value: '12', color: 'text-blue-600' },
-    { icon: Target, label: 'Total Students', value: '156', color: 'text-green-600' },
+      { icon: BookOpen, label: 'Active Classrooms', value: '12', color: 'text-blue-600' },
+      { icon: Target, label: 'Total Students', value: students.length, color: 'text-green-600' },
     { icon: Award, label: 'Laps Completed', value: '1,247', color: 'text-purple-600' },
     { icon: TrendingUp, label: 'Achievements', value: '89', color: 'text-orange-600' },
   ];

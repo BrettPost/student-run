@@ -11,6 +11,7 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+		Server|Any CPU = Server|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{607323E3-D273-9E33-653E-375FF290DEB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -19,10 +20,13 @@ Global
 		{607323E3-D273-9E33-653E-375FF290DEB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{607323E3-D273-9E33-653E-375FF290DEB2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{607323E3-D273-9E33-653E-375FF290DEB2}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{607323E3-D273-9E33-653E-375FF290DEB2}.Server|Any CPU.ActiveCfg = Server|Any CPU
 		{AE8095FC-EDFB-4E9A-AD1F-CF05ABBB9FED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AE8095FC-EDFB-4E9A-AD1F-CF05ABBB9FED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE8095FC-EDFB-4E9A-AD1F-CF05ABBB9FED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE8095FC-EDFB-4E9A-AD1F-CF05ABBB9FED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE8095FC-EDFB-4E9A-AD1F-CF05ABBB9FED}.Server|Any CPU.ActiveCfg = Server|Any CPU
+		{AE8095FC-EDFB-4E9A-AD1F-CF05ABBB9FED}.Server|Any CPU.Build.0 = Server|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

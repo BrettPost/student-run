@@ -50,3 +50,4 @@ next-env.d.ts
 StudentRun/.vs/ProjectEvaluation/studentrun.metadata.v9.bin
 StudentRun/.vs/ProjectEvaluation/studentrun.projects.v9.bin
 StudentRun/.vs/ProjectEvaluation/studentrun.strings.v9.bin
+/StudentRun/StudentRun.Server/bin/Server/net9.0

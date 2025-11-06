@@ -1,11 +1,12 @@
 @domain_Url = https://localhost:5000/api
+@id=1
+
 
 GET {{domain_Url}}/teacher
 Accept: application/json
 
 ###
 
-@id=1
 GET {{domain_Url}}/teacher/{{id}}/students
 Accept: application/json
 
@@ -16,8 +17,12 @@ Accept: application/json
 
 ###
 
-@id=2
 GET {{domain_Url}}/student/{{id}}
+Accept: application/json
+
+###
+
+GET {{domain_Url}}/prize
 Accept: application/json
 
 ###

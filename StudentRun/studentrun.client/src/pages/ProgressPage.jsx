@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Trophy, Target, Award, Plus, Edit, Star, CheckCircle, Circle, MapPin, Users, TrendingUp } from 'lucide-react';
 
-const ProgressPage = ({ students, prizes, metrics, achievements, onUpdateAchievements }) => {
+const ProgressPage = ({ students, prizes, achievements}) => {
   const [showAddAchievement, setShowAddAchievement] = useState(false);
   const [showAddReward, setShowAddReward] = useState(false);
   const [newAchievement, setNewAchievement] = useState({ name: '', description: '', lapsRequired: '' });
@@ -12,9 +12,9 @@ const ProgressPage = ({ students, prizes, metrics, achievements, onUpdateAchieve
     { id: 3, name: 'Trophy', description: 'Golden running trophy', lapsRequired: 10, unlocked: false },
   ]);
 
-  const totalStudents = students.length;
-  const totalLapsCompleted = students.reduce((sum, student) => sum + student.lapsCompleted, 0);
-  const totalCardsCompleted = students.reduce((sum, student) => sum + student.cardsCompleted, 0);
+    const totalStudents = students.length;
+    const totalLapsCompleted = students.reduce((sum, student) => sum + student.laps, 0);
+  const totalCardsCompleted = students.reduce((sum, student) => sum + student.miles, 0);
 
   const roadmapSteps = [
     { id: 1, name: 'First Steps', description: 'Complete your first lap', lapsRequired: 1, icon: '👶', color: 'blue' },
@@ -47,7 +47,7 @@ const ProgressPage = ({ students, prizes, metrics, achievements, onUpdateAchieve
         lapsRequired: parseInt(newAchievement.lapsRequired),
         unlocked: false
       };
-      onUpdateAchievements([...achievements, achievement]);
+      //onUpdateAchievements([...achievements, achievement]);
       setNewAchievement({ name: '', description: '', lapsRequired: '' });
       setShowAddAchievement(false);
     }
@@ -135,8 +135,8 @@ const ProgressPage = ({ students, prizes, metrics, achievements, onUpdateAchieve
               <TrendingUp className="h-6 w-6 text-purple-600" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-900">{totalCardsCompleted}%</p>
-              <p className="text-sm text-gray-600">Avg Progress</p>
+              <p className="text-2xl font-bold text-gray-900">{totalCardsCompleted}</p>
+              <p className="text-sm text-gray-600">Mileage Completed</p>
             </div>
           </div>
         </div>
