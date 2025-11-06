@@ -20,11 +20,9 @@ public partial class StudentRunContext : DbContext
 
     public virtual DbSet<Teacher> Teachers { get; set; }
 
-    public virtual DbSet<Prize> Prize { get; set; }
+    public virtual DbSet<Prize> Prizes { get; set; }
 
-    public virtual DbSet<StudentPrize> StudentPrize { get; set; }
-
-    public virtual DbSet<StudentRunMetric> StudentRunMetric { get; set; }
+    public virtual DbSet<Achievement> Achievements { get; set; }
 
     //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     //#warning 
@@ -40,16 +38,7 @@ public partial class StudentRunContext : DbContext
             entity.ToTable("student");
 
             entity.Property(e => e.Id)
-                .UseIdentityAlwaysColumn()
-                .HasColumnName("id");
-            entity.Property(e => e.FirstName)
-                .HasColumnType("character varying")
-                .HasColumnName("first_name");
-            entity.Property(e => e.Grade).HasColumnName("grade");
-            entity.Property(e => e.LastName)
-                .HasColumnType("character varying")
-                .HasColumnName("last_name");
-            entity.Property(e => e.TeacherId).HasColumnName("teacher_id");
+                .UseIdentityAlwaysColumn();
 
             entity.HasOne(d => d.Teacher).WithMany(p => p.Students)
                 .HasForeignKey(d => d.TeacherId)
@@ -63,15 +52,7 @@ public partial class StudentRunContext : DbContext
             entity.ToTable("teacher");
 
             entity.Property(e => e.Id)
-                .UseIdentityAlwaysColumn()
-                .HasColumnName("id");
-            entity.Property(e => e.FirstName)
-                .HasColumnType("character varying")
-                .HasColumnName("first_name");
-            entity.Property(e => e.Grade).HasColumnName("grade");
-            entity.Property(e => e.LastName)
-                .HasColumnType("character varying")
-                .HasColumnName("last_name");
+                .UseIdentityAlwaysColumn();
         });
 
         modelBuilder.Entity<Prize>(entity =>
@@ -81,38 +62,7 @@ public partial class StudentRunContext : DbContext
             entity.ToTable("prize");
 
             entity.Property(e => e.Id)
-                .UseIdentityAlwaysColumn()
-                .HasColumnName("id");
-        });
-
-        modelBuilder.Entity<StudentPrize>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("studentPrize_pkey");
-
-            entity.ToTable("studentPrize");
-
-            entity.Property(e => e.Id)
-                .UseIdentityAlwaysColumn()
-                .HasColumnName("id");
-
-            entity.HasOne(d => d.Student).WithMany(p => p.StudentPrizes)
-                .HasForeignKey(d => d.StudentId)
-                .HasConstraintName("studentPrize_id_student_id_fk");
-        });
-
-        modelBuilder.Entity<StudentRunMetric>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("studentRunMetric_pkey");
-
-            entity.ToTable("studentRunMetric");
-
-            entity.Property(e => e.Id)
-                .UseIdentityAlwaysColumn()
-                .HasColumnName("id");
-
-            entity.HasOne(d => d.Student).WithMany(p => p.StudentRunMetrics)
-                .HasForeignKey(d => d.StudentId)
-                .HasConstraintName("studentRunMetric_id_teacher_id_fk");
+                .UseIdentityAlwaysColumn();
         });
 
         OnModelCreatingPartial(modelBuilder);

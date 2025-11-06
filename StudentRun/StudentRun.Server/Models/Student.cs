@@ -10,11 +10,13 @@ public partial class Student
 
     public int? Grade { get; set; }
 
+    public int Laps { get; set; } = 0;
+
+    public double Miles { get; set; } = 0;
+
+    public DateTime JoinedDate { get; set; }
+
     public long? TeacherId { get; set; }
 
     public virtual Teacher? Teacher { get; set; }
-
-    public virtual ICollection<StudentPrize> StudentPrizes { get; set; } = [];
-
-    public virtual ICollection<StudentRunMetric> StudentRunMetrics { get; set; } = [];
 }
