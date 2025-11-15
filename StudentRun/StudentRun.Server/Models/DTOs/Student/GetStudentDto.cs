@@ -1,6 +1,6 @@
-﻿namespace StudentRun.Server.Models.DTOs
+﻿namespace StudentRun.Server.Models.DTOs.Student
 {
-    public class StudentDto
+    public class GetStudentDto
     {
         public long Id { get; set; }
 

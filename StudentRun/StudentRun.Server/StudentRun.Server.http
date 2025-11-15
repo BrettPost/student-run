@@ -26,3 +26,14 @@ GET {{domain_Url}}/prize
 Accept: application/json
 
 ###
+
+POST {{domain_Url}}/teacher
+Content-Type: application/json
+
+{
+    "FirstName": "Haley",
+    "LastName": "Frey",
+    "Grade": 6
+}
+
+###

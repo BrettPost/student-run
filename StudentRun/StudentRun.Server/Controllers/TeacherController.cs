@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentRun.Server.Data;
 using StudentRun.Server.Models;
-using StudentRun.Server.Models.DTOs;
+using StudentRun.Server.Models.DTOs.Teacher;
+using StudentRun.Server.Models.DTOs.Student;
 
 namespace StudentRun.Server.Controllers
 {
@@ -27,7 +29,7 @@ namespace StudentRun.Server.Controllers
 
             if (teachersDb == null) { return NotFound(); }
 
-            var teachers = teachersDb.Select(s => new TeacherDto()
+            var teachers = teachersDb.Select(s => new GetTeacherDto()
             {
                 Id = s.Id,
                 FirstName = s.FirstName,
@@ -47,7 +49,7 @@ namespace StudentRun.Server.Controllers
 
             if (teacher == null) { return NotFound(); }
 
-            var students = teacher.Students.Select(s => new StudentDto()
+            var students = teacher.Students.Select(s => new GetStudentDto()
             {
                 Id = s.Id,
                 FirstName = s.FirstName,
@@ -59,6 +61,29 @@ namespace StudentRun.Server.Controllers
             return Ok(students);
         }
 
-        
+        [HttpPost]
+        public async Task<ActionResult> Post(PostTeacherDto teacher)
+        {
+            if (teacher == null) { return BadRequest(); }
+
+            Teacher newTeacher = new()
+            {
+                FirstName = teacher.FirstName,
+                LastName = teacher.LastName,
+                Grade = teacher.Grade,
+            };
+            try
+            {
+                _context.Add(newTeacher);
+                await _context.SaveChangesAsync();
+            } catch (Exception e)
+            {
+                Console.WriteLine("Error Saving to Database\n\n" + e);
+                return StatusCode(500, e);
+            }
+
+            return CreatedAtAction(nameof(Get), new {id = newTeacher.Id}, teacher);
+        }
+
     }
 }

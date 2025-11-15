@@ -1,6 +1,6 @@
-﻿namespace StudentRun.Server.Models.DTOs
+﻿namespace StudentRun.Server.Models.DTOs.Prize
 {
-    public class PrizeDto
+    public class GetPrizeDto
     {
         public int Id { get; set; }
 

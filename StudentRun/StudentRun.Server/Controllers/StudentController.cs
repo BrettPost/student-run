@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentRun.Server.Data;
 using StudentRun.Server.Models;
-using StudentRun.Server.Models.DTOs;
+using StudentRun.Server.Models.DTOs.Student;
 
 namespace StudentRun.Server.Controllers
 {
@@ -27,7 +27,7 @@ namespace StudentRun.Server.Controllers
 
             if (studentsDb == null) { return NotFound(); }
 
-            var students = studentsDb.Select(s => new StudentDto()
+            var students = studentsDb.Select(s => new GetStudentDto()
             {
                 Id = s.Id,
                 FirstName = s.FirstName,
@@ -46,7 +46,7 @@ namespace StudentRun.Server.Controllers
 
             if (studentDb == null) { return NotFound(); }
 
-            StudentDto student = new()
+            GetStudentDto getStudent = new()
             {
                 Id = studentDb.Id,
                 FirstName = studentDb.FirstName,
@@ -55,7 +55,7 @@ namespace StudentRun.Server.Controllers
                 TeacherId = studentDb.TeacherId,
             };
 
-            return Ok(student);
+            return Ok(getStudent);
         }
     }
 }

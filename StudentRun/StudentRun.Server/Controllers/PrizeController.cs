@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentRun.Server.Data;
-using StudentRun.Server.Models.DTOs;
+using StudentRun.Server.Models.DTOs.Prize;
 
 namespace StudentRun.Server.Controllers
 {
@@ -26,7 +26,7 @@ namespace StudentRun.Server.Controllers
 
             if (prizeDb == null) { return NotFound(); }
 
-            var prizes = prizeDb.Select(s => new PrizeDto()
+            var prizes = prizeDb.Select(s => new GetPrizeDto()
             {
                 Id = s.Id,
                 Type = s.Type,
