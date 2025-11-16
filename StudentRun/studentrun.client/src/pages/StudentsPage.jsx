@@ -70,7 +70,7 @@ const StudentsPage = ({ teachers, students, onAddStudent }) => {
             <h1 className="text-4xl font-bold text-gray-900">
               {teacher.firstName} {teacher.lastName}'s Students
             </h1>
-            <p className="text-gray-600 mt-2">{teacher.grade} Grade Classroom</p>
+            <p className="text-gray-600 mt-2">Grade {teacher.grade} Classroom</p>
           </div>
         </div>
         <button
@@ -167,7 +167,7 @@ const StudentsPage = ({ teachers, students, onAddStudent }) => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {teacherStudents.map((student) => {
-            const progressPercentage = getProgressPercentage(student.lapsCompleted, student.totalLaps);
+            const progressPercentage = getProgressPercentage(student.miles % 5.00, 5.00);
             const progressColor = getProgressColor(progressPercentage);
             
             return (
@@ -184,7 +184,6 @@ const StudentsPage = ({ teachers, students, onAddStudent }) => {
                       <h3 className="text-lg font-semibold text-gray-900">
                         {student.firstName} {student.lastName}
                       </h3>
-                      <p className="text-gray-600">{student.grade} Grade</p>
                     </div>
                   </div>
                   <div className="flex space-x-2">
@@ -203,7 +202,7 @@ const StudentsPage = ({ teachers, students, onAddStudent }) => {
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-sm font-medium text-gray-700">Progress</span>
                       <span className="text-sm font-semibold text-gray-900">
-                        {student.lapsCompleted}/{student.totalLaps} laps
+                        {student.miles}/5.00 Miles
                       </span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
@@ -224,7 +223,7 @@ const StudentsPage = ({ teachers, students, onAddStudent }) => {
                         <Target className="h-4 w-4 text-indigo-600" />
                         <span className="text-sm font-medium text-gray-700">Laps</span>
                       </div>
-                      <p className="text-lg font-bold text-gray-900">{student.lapsCompleted}</p>
+                      <p className="text-lg font-bold text-gray-900">{student.laps}</p>
                     </div>
                     <div className="text-center">
                       <div className="flex items-center justify-center space-x-1 mb-1">

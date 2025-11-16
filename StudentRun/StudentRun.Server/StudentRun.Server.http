@@ -1,13 +1,25 @@
 @domain_Url = https://localhost:5000/api
+@id=1
+
 
 GET {{domain_Url}}/teacher
 Accept: application/json
 
 ###
 
-@id=1
 GET {{domain_Url}}/teacher/{{id}}/students
 Accept: application/json
+
+###
+
+POST {{domain_Url}}/teacher
+Content-Type: application/json
+
+{
+    "FirstName": "Carson",
+    "LastName": "Frey",
+    "Grade": 6
+}
 
 ###
 
@@ -16,8 +28,38 @@ Accept: application/json
 
 ###
 
-@id=2
 GET {{domain_Url}}/student/{{id}}
 Accept: application/json
 
 ###
+
+POST {{domain_Url}}/student
+Content-Type: application/json
+
+{
+    "FirstName": "Miles",
+    "LastName": "Teller",
+    "Grade": 2,
+    "TeacherId": 4
+}
+
+###
+
+GET {{domain_Url}}/prize
+Accept: application/json
+
+###
+
+POST {{domain_Url}}/prize
+Content-Type: application/json
+
+{
+    "Type": "Mileage",
+    "Title": "Pizza Party",
+    "Description": "yip yip",
+    "Milestone": 15
+}
+
+###
+
+

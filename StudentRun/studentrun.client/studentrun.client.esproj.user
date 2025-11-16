@@ -10,4 +10,14 @@
   "webRoot": "C:\\Users\\BrettsPC\\Documents\\Brett\\Repos\\StudentsRun\\StudentRun\\studentrun.client"
 }</LaunchJsonTarget>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Server|AnyCPU'">
+    <DebuggerFlavor>LaunchJsonDebugger</DebuggerFlavor>
+    <LaunchJsonTarget>{
+  "name": "localhost (Chrome)",
+  "type": "chrome",
+  "request": "launch",
+  "url": "https://localhost:5173",
+  "webRoot": "C:\\Users\\BrettsPC\\Documents\\Brett\\Repos\\StudentsRun\\StudentRun\\studentrun.client"
+}</LaunchJsonTarget>
+  </PropertyGroup>
 </Project>

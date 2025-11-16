@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace StudentRun.Server.Models;
+﻿namespace StudentRun.Server.Models;
 
 public partial class Student
 {
@@ -12,6 +9,12 @@ public partial class Student
     public string? LastName { get; set; }
 
     public int? Grade { get; set; }
+
+    public int Laps { get; set; } = 0;
+
+    public double Miles { get; set; } = 0;
+
+    public DateTime JoinedDate { get; set; }
 
     public long? TeacherId { get; set; }
 

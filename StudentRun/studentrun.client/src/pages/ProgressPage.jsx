@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Trophy, Target, Award, Plus, Edit, Star, CheckCircle, Circle, MapPin, Users, TrendingUp } from 'lucide-react';
 
-const ProgressPage = ({ students, achievements, onUpdateAchievements }) => {
+const ProgressPage = ({ students, prizes, achievements}) => {
   const [showAddAchievement, setShowAddAchievement] = useState(false);
   const [showAddReward, setShowAddReward] = useState(false);
   const [newAchievement, setNewAchievement] = useState({ name: '', description: '', lapsRequired: '' });
@@ -12,9 +12,9 @@ const ProgressPage = ({ students, achievements, onUpdateAchievements }) => {
     { id: 3, name: 'Trophy', description: 'Golden running trophy', lapsRequired: 10, unlocked: false },
   ]);
 
-  const totalStudents = students.length;
-  const totalLapsCompleted = students.reduce((sum, student) => sum + student.lapsCompleted, 0);
-  const averageProgress = totalStudents > 0 ? Math.round(students.reduce((sum, student) => sum + (student.lapsCompleted / student.totalLaps), 0) / totalStudents * 100) : 0;
+    const totalStudents = students.length;
+    const totalLapsCompleted = students.reduce((sum, student) => sum + student.laps, 0);
+  const totalCardsCompleted = students.reduce((sum, student) => sum + student.miles, 0);
 
   const roadmapSteps = [
     { id: 1, name: 'First Steps', description: 'Complete your first lap', lapsRequired: 1, icon: '👶', color: 'blue' },
@@ -24,9 +24,9 @@ const ProgressPage = ({ students, achievements, onUpdateAchievements }) => {
     { id: 5, name: 'Marathon Master', description: 'Complete all 10 laps', lapsRequired: 10, icon: '🏆', color: 'purple' },
   ];
 
-  const getStudentProgress = (student) => {
-    return Math.round((student.lapsCompleted / student.totalLaps) * 100);
-  };
+  //const getStudentProgress = (student) => {
+  //  return Math.round((student.lapsCompleted / student.totalLaps) * 100);
+  //};
 
   const getStepStatus = (lapsRequired) => {
     const completedStudents = students.filter(student => student.lapsCompleted >= lapsRequired).length;
@@ -47,7 +47,7 @@ const ProgressPage = ({ students, achievements, onUpdateAchievements }) => {
         lapsRequired: parseInt(newAchievement.lapsRequired),
         unlocked: false
       };
-      onUpdateAchievements([...achievements, achievement]);
+      //onUpdateAchievements([...achievements, achievement]);
       setNewAchievement({ name: '', description: '', lapsRequired: '' });
       setShowAddAchievement(false);
     }
@@ -100,7 +100,7 @@ const ProgressPage = ({ students, achievements, onUpdateAchievements }) => {
             className="inline-flex items-center space-x-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors font-semibold"
           >
             <Trophy className="h-4 w-4" />
-            <span>Add Reward</span>
+            <span>Add Prize</span>
           </button>
         </div>
       </div>
@@ -135,8 +135,8 @@ const ProgressPage = ({ students, achievements, onUpdateAchievements }) => {
               <TrendingUp className="h-6 w-6 text-purple-600" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-900">{averageProgress}%</p>
-              <p className="text-sm text-gray-600">Avg Progress</p>
+              <p className="text-2xl font-bold text-gray-900">{totalCardsCompleted}</p>
+              <p className="text-sm text-gray-600">Mileage Completed</p>
             </div>
           </div>
         </div>

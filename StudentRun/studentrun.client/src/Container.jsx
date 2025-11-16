@@ -6,8 +6,14 @@ import ClassroomsPage from './pages/ClassroomsPage';
 import StudentsPage from './pages/StudentsPage';
 import StudentDetailsPage from './pages/StudentDetailsPage';
 import ProgressPage from './pages/ProgressPage';
+import { useState } from 'react';
 
 function Container() {
+    const [achievements, setAchievements] = useState([
+        { id: 1, name: 'First Lap', description: 'Complete your first lap', lapsRequired: 1, unlocked: true },
+        { id: 2, name: 'Halfway There', description: 'Complete 5 laps', lapsRequired: 5, unlocked: false },
+        { id: 3, name: 'Marathon Runner', description: 'Complete 10 laps', lapsRequired: 10, unlocked: false },
+    ]);
 
     const teachers = useQuery({
         queryKey: ['teachers'],
@@ -19,6 +25,13 @@ function Container() {
     const students = useQuery({
         queryKey: ['students'],
         queryFn: () => fetch('/api/student')
+            .then(res => res.json())
+            .catch(err => console.error('Error:', err))
+    })
+
+    const prizes = useQuery({
+        queryKey: ['prizes'],
+        queryFn: () => fetch('/api/prize')
             .then(res => res.json())
             .catch(err => console.error('Error:', err))
     })
@@ -39,7 +52,13 @@ function Container() {
         return <span>Student Error: {students.isError.message}</span>
     }
 
-    
+    if (prizes.isPending) {
+        return <span>Loading Prizes...</span>
+    }
+
+    if (prizes.isError) {
+        return <span>Prize Error: {prizes.isError.message}</span>
+    }
 
     //const loadStudents = (id) => useQuery({
     //    queryKey: [`studentsFromTeacher-${id}`],
@@ -47,16 +66,6 @@ function Container() {
     //        .then(res => res.json())
     //        .catch(err => console.error(`Error: ${err}`))
     //})
-
-    //const loadAchievements = () => {
-    //    // Mock achievements data
-    //    const mockAchievements = [
-    //        { id: 1, name: 'First Lap', description: 'Complete your first lap', lapsRequired: 1, unlocked: true },
-    //        { id: 2, name: 'Halfway There', description: 'Complete 5 laps', lapsRequired: 5, unlocked: false },
-    //        { id: 3, name: 'Marathon Runner', description: 'Complete 10 laps', lapsRequired: 10, unlocked: false },
-    //    ];
-    //    setAchievements(mockAchievements);
-    //};
 
     const addTeacher = async (teacherData) => {
         try {
@@ -88,12 +97,19 @@ function Container() {
             <Navigation />
             <main className="container mx-auto px-4 py-8">
                 <Routes>
-                    <Route path="/" element={<HomePage />} />
+                    <Route
+                        path="/"
+                        element={
+                            <HomePage
+                                students={students.data}
+                            />}
+                    />
                     <Route
                         path="/classrooms"
                         element={
                             <ClassroomsPage
                                 teachers={teachers.data}
+                                students={students.data}
                                 onAddTeacher={addTeacher}
                             />
                         }
@@ -118,16 +134,16 @@ function Container() {
                             />
                         }
                     />
-                    {/*<Route*/}
-                    {/*    path="/progress"*/}
-                    {/*    element={*/}
-                    {/*        <ProgressPage*/}
-                    {/*            students={students.data}*/}
-                    {/*            achievements={achievements}*/}
-                    {/*            onUpdateAchievements={setAchievements}*/}
-                    {/*        />*/}
-                    {/*    }*/}
-                    {/*/>*/}
+                    <Route
+                        path="/progress"
+                        element={
+                            <ProgressPage
+                                students={students.data}
+                                prizes={prizes.data}
+                                achievements={achievements}
+                            />
+                        }
+                    />
                 </Routes>
             </main>
         </div>

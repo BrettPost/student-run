@@ -1,9 +1,7 @@
-﻿namespace StudentRun.Server.Models.DTOs
+﻿namespace StudentRun.Server.Models.DTOs.Teacher
 {
-    public class TeacherDto
+    public class PostTeacherDto
     {
-        public long Id { get; set; }
-
         public string? FirstName { get; set; }
 
         public string LastName { get; set; } = null!;

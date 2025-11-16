@@ -32,7 +32,7 @@ const StudentDetailsPage = ({ students, teachers, onUpdateLaps }) => {
   };
 
   const getProgressPercentage = () => {
-    return Math.round((student.lapsCompleted / student.totalLaps) * 100);
+    return Math.round(((student.miles % 5) / 5.00) * 100);
   };
 
   const getProgressColor = (percentage) => {
@@ -85,7 +85,7 @@ const StudentDetailsPage = ({ students, teachers, onUpdateLaps }) => {
             {student.firstName} {student.lastName}
           </h1>
           <p className="text-gray-600 mt-2">
-            {student.grade} Grade • {teacher?.firstName} {teacher?.lastName}'s Classroom
+            Grade {student.grade} • {teacher?.firstName} {teacher?.lastName}'s Classroom
           </p>
         </div>
       </div>
@@ -124,7 +124,7 @@ const StudentDetailsPage = ({ students, teachers, onUpdateLaps }) => {
               <div className="flex justify-between items-center mb-2">
                 <span className="text-sm font-medium text-gray-700">Lap Progress</span>
                 <span className="text-sm font-semibold text-gray-900">
-                  {student.lapsCompleted}/{student.totalLaps} laps
+                  {student.miles}/5.00 Miles
                 </span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-3">
@@ -176,13 +176,13 @@ const StudentDetailsPage = ({ students, teachers, onUpdateLaps }) => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="text-center p-4 bg-blue-50 rounded-lg">
                 <Target className="h-8 w-8 text-blue-600 mx-auto mb-2" />
-                <p className="text-2xl font-bold text-blue-600">{student.lapsCompleted}</p>
+                <p className="text-2xl font-bold text-blue-600">{student.laps}</p>
                 <p className="text-sm text-gray-600">Laps Completed</p>
               </div>
               <div className="text-center p-4 bg-green-50 rounded-lg">
                 <Trophy className="h-8 w-8 text-green-600 mx-auto mb-2" />
-                <p className="text-2xl font-bold text-green-600">{student.totalLaps - student.lapsCompleted}</p>
-                <p className="text-sm text-gray-600">Laps Remaining</p>
+                <p className="text-2xl font-bold text-green-600">{5.00 - student.miles}</p>
+                <p className="text-sm text-gray-600">Miles Remaining</p>
               </div>
               <div className="text-center p-4 bg-purple-50 rounded-lg">
                 <TrendingUp className="h-8 w-8 text-purple-600 mx-auto mb-2" />

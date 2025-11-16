@@ -2,7 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentRun.Server.Data;
 using StudentRun.Server.Models;
-using StudentRun.Server.Models.DTOs;
+using StudentRun.Server.Models.DTOs.Student;
+using StudentRun.Server.Models.DTOs.Teacher;
 
 namespace StudentRun.Server.Controllers
 {
@@ -27,7 +28,7 @@ namespace StudentRun.Server.Controllers
 
             if (studentsDb == null) { return NotFound(); }
 
-            var students = studentsDb.Select(s => new StudentDto()
+            var students = studentsDb.Select(s => new GetStudentDto()
             {
                 Id = s.Id,
                 FirstName = s.FirstName,
@@ -46,7 +47,7 @@ namespace StudentRun.Server.Controllers
 
             if (studentDb == null) { return NotFound(); }
 
-            StudentDto student = new()
+            GetStudentDto getStudent = new()
             {
                 Id = studentDb.Id,
                 FirstName = studentDb.FirstName,
@@ -55,7 +56,36 @@ namespace StudentRun.Server.Controllers
                 TeacherId = studentDb.TeacherId,
             };
 
-            return Ok(student);
+            return Ok(getStudent);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Post(PostStudentDto student)
+        {
+            if (student == null) { return BadRequest(); }
+
+            Student newStudent = new()
+            {
+                FirstName = student.FirstName,
+                LastName = student.LastName,
+                Grade = student.Grade,
+                Laps = student.Laps,
+                Miles = student.Miles,
+                JoinedDate = DateTime.UtcNow,
+                TeacherId = student.TeacherId,
+            };
+            try
+            {
+                _context.Students.Add(newStudent);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error Saving to Database\n\n" + e);
+                return StatusCode(500, e);
+            }
+
+            return CreatedAtAction(nameof(Get), new { id = newStudent.Id }, student);
         }
     }
 }

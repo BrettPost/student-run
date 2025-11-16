@@ -1,14 +1,16 @@
-﻿namespace StudentRun.Server.Models.DTOs
+﻿namespace StudentRun.Server.Models.DTOs.Student
 {
-    public class StudentDto
+    public class PostStudentDto
     {
-        public long Id { get; set; }
-
         public string FirstName { get; set; } = null!;
 
         public string? LastName { get; set; }
 
         public int? Grade { get; set; }
+
+        public int Laps { get; set; } = 0;
+
+        public double Miles { get; set; } = 0;
 
         public long? TeacherId { get; set; }
     }

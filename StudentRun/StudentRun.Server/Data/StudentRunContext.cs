@@ -20,6 +20,10 @@ public partial class StudentRunContext : DbContext
 
     public virtual DbSet<Teacher> Teachers { get; set; }
 
+    public virtual DbSet<Prize> Prizes { get; set; }
+
+    public virtual DbSet<Achievement> Achievements { get; set; }
+
     //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     //#warning 
     //    //To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -34,16 +38,7 @@ public partial class StudentRunContext : DbContext
             entity.ToTable("student");
 
             entity.Property(e => e.Id)
-                .UseIdentityAlwaysColumn()
-                .HasColumnName("id");
-            entity.Property(e => e.FirstName)
-                .HasColumnType("character varying")
-                .HasColumnName("first_name");
-            entity.Property(e => e.Grade).HasColumnName("grade");
-            entity.Property(e => e.LastName)
-                .HasColumnType("character varying")
-                .HasColumnName("last_name");
-            entity.Property(e => e.TeacherId).HasColumnName("teacher_id");
+                .UseIdentityAlwaysColumn();
 
             entity.HasOne(d => d.Teacher).WithMany(p => p.Students)
                 .HasForeignKey(d => d.TeacherId)
@@ -57,15 +52,17 @@ public partial class StudentRunContext : DbContext
             entity.ToTable("teacher");
 
             entity.Property(e => e.Id)
-                .UseIdentityAlwaysColumn()
-                .HasColumnName("id");
-            entity.Property(e => e.FirstName)
-                .HasColumnType("character varying")
-                .HasColumnName("first_name");
-            entity.Property(e => e.Grade).HasColumnName("grade");
-            entity.Property(e => e.LastName)
-                .HasColumnType("character varying")
-                .HasColumnName("last_name");
+                .UseIdentityAlwaysColumn();
+        });
+
+        modelBuilder.Entity<Prize>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("prize_pkey");
+
+            entity.ToTable("prize");
+
+            entity.Property(e => e.Id)
+                .UseIdentityAlwaysColumn();
         });
 
         OnModelCreatingPartial(modelBuilder);
