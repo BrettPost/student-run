@@ -12,6 +12,17 @@ Accept: application/json
 
 ###
 
+POST {{domain_Url}}/teacher
+Content-Type: application/json
+
+{
+    "FirstName": "Carson",
+    "LastName": "Frey",
+    "Grade": 6
+}
+
+###
+
 GET {{domain_Url}}/student
 Accept: application/json
 
@@ -22,18 +33,33 @@ Accept: application/json
 
 ###
 
+POST {{domain_Url}}/student
+Content-Type: application/json
+
+{
+    "FirstName": "Miles",
+    "LastName": "Teller",
+    "Grade": 2,
+    "TeacherId": 4
+}
+
+###
+
 GET {{domain_Url}}/prize
 Accept: application/json
 
 ###
 
-POST {{domain_Url}}/teacher
+POST {{domain_Url}}/prize
 Content-Type: application/json
 
 {
-    "FirstName": "Haley",
-    "LastName": "Frey",
-    "Grade": 6
+    "Type": "Mileage",
+    "Title": "Pizza Party",
+    "Description": "yip yip",
+    "Milestone": 15
 }
 
 ###
+
+

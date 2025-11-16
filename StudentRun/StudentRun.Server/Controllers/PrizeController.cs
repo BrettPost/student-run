@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentRun.Server.Data;
+using StudentRun.Server.Models;
 using StudentRun.Server.Models.DTOs.Prize;
+using StudentRun.Server.Models.DTOs.Teacher;
 
 namespace StudentRun.Server.Controllers
 {
@@ -36,6 +38,32 @@ namespace StudentRun.Server.Controllers
             });
 
             return Ok(prizes);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Post(PostPrizeDto prize)
+        {
+            if (prize == null) { return BadRequest(); }
+
+            Prize newPrize = new()
+            {
+                Type = prize.Type,
+                Title = prize.Title,
+                Description = prize.Description,
+                Milestone = prize.Milestone,
+            };
+            try
+            {
+                _context.Prizes.Add(newPrize);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error Saving to Database\n\n" + e);
+                return StatusCode(500, e);
+            }
+
+            return CreatedAtAction(nameof(Get), new { id = newPrize.Id }, prize);
         }
     }
 }

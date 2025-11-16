@@ -74,7 +74,7 @@ namespace StudentRun.Server.Controllers
             };
             try
             {
-                _context.Add(newTeacher);
+                _context.Teachers.Add(newTeacher);
                 await _context.SaveChangesAsync();
             } catch (Exception e)
             {
