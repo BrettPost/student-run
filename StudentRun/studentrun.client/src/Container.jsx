@@ -9,145 +9,148 @@ import ProgressPage from './pages/ProgressPage';
 import { useState } from 'react';
 
 function Container() {
-    const [achievements, setAchievements] = useState([
-        { id: 1, name: 'First Lap', description: 'Complete your first lap', lapsRequired: 1, unlocked: true },
-        { id: 2, name: 'Halfway There', description: 'Complete 5 laps', lapsRequired: 5, unlocked: false },
-        { id: 3, name: 'Marathon Runner', description: 'Complete 10 laps', lapsRequired: 10, unlocked: false },
-    ]);
+	const [achievements, setAchievements] = useState([
+		{ id: 1, name: 'First Lap', description: 'Complete your first lap', lapsRequired: 1, unlocked: true },
+		{ id: 2, name: 'Halfway There', description: 'Complete 5 laps', lapsRequired: 5, unlocked: false },
+		{ id: 3, name: 'Marathon Runner', description: 'Complete 10 laps', lapsRequired: 10, unlocked: false },
+	]);
 
-    const teachers = useQuery({
-        queryKey: ['teachers'],
-        queryFn: () => fetch('/api/teacher')
-            .then((res) => res.json())
-            .catch(error => console.error('Error:', error))
-    })
+	const teachers = useQuery({
+		queryKey: ['teachers'],
+		queryFn: async () => await fetch('/api/teacher')
+			.then((res) => res.json())
+			.catch(error => console.error('Error:', error))
+	})
 
-    const students = useQuery({
-        queryKey: ['students'],
-        queryFn: () => fetch('/api/student')
-            .then(res => res.json())
-            .catch(err => console.error('Error:', err))
-    })
+	const students = useQuery({
+		queryKey: ['students'],
+		queryFn: () => fetch('/api/student')
+			.then(res => res.json())
+			.catch(err => console.error('Error: ', err))
+	})
 
-    const prizes = useQuery({
-        queryKey: ['prizes'],
-        queryFn: () => fetch('/api/prize')
-            .then(res => res.json())
-            .catch(err => console.error('Error:', err))
-    })
+	const prizes = useQuery({
+		queryKey: ['prizes'],
+		queryFn: () => fetch('/api/prize')
+			.then(res => res.json())
+			.catch(err => console.error('Error: ', err))
+	})
 
-    if (teachers.isPending) {
-        return <span>Loading Teachers...</span>
-    }
 
-    if (teachers.isError) {
-        return <span>Teacher Error: {teachers.isError.message}</span>
-    }
 
-    if (students.isPending) {
-        return <span>Loading Students...</span>
-    }
+	if (teachers.isPending) {
+		return <span>Loading Teachers...</span>
+	}
 
-    if (students.isError) {
-        return <span>Student Error: {students.isError.message}</span>
-    }
+	if (teachers.isError) {
+		return <span>Teacher Error: {teachers.isError.message}</span>
+	}
 
-    if (prizes.isPending) {
-        return <span>Loading Prizes...</span>
-    }
+	if (students.isPending) {
+		return <span>Loading Students...</span>
+	}
 
-    if (prizes.isError) {
-        return <span>Prize Error: {prizes.isError.message}</span>
-    }
+	if (students.isError) {
+		return <span>Student Error: {students.isError.message}</span>
+	}
 
-    //const loadStudents = (id) => useQuery({
-    //    queryKey: [`studentsFromTeacher-${id}`],
-    //    queryFn: () => fetch(`/teacher/${id}/student`)
-    //        .then(res => res.json())
-    //        .catch(err => console.error(`Error: ${err}`))
-    //})
+	if (prizes.isPending) {
+		return <span>Loading Prizes...</span>
+	}
 
-    const addTeacher = async (teacherData) => {
-        try {
-            const response = await fetch('/teacher', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(teacherData),
-            });
-            if (response.ok) {
-                //loadTeachers();
-            }
-        } catch (error) {
-            console.error('Error adding teacher:', error);
-        }
-    };
+	if (prizes.isError) {
+		return <span>Prize Error: {prizes.isError.message}</span>
+	}
 
-    const addStudent = () => {
+	//const loadStudents = (id) => useQuery({
+	//    queryKey: [`studentsFromTeacher-${id}`],
+	//    queryFn: () => fetch(`/teacher/${id}/student`)
+	//        .then(res => res.json())
+	//        .catch(err => console.error(`Error: ${err}`))
+	//})
 
-    };
+	//const addTeacher = async (teacherData) => {
+	//    try {
+	//        const response = await fetch('/teacher', {
+	//            method: 'POST',
+	//            headers: {
+	//                'Content-Type': 'application/json',
+	//            },
+	//            body: JSON.stringify(teacherData),
+	//        });
+	//        if (response.ok) {
+	//            //loadTeachers();
+	//        }
+	//    } catch (error) {
+	//        console.error('Error adding teacher:', error);
+	//    }
+	//};
 
-    const updateStudentLaps = () => {
 
-    };
 
-    return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-            <Navigation />
-            <main className="container mx-auto px-4 py-8">
-                <Routes>
-                    <Route
-                        path="/"
-                        element={
-                            <HomePage
-                                students={students.data}
-                            />}
-                    />
-                    <Route
-                        path="/classrooms"
-                        element={
-                            <ClassroomsPage
-                                teachers={teachers.data}
-                                students={students.data}
-                                onAddTeacher={addTeacher}
-                            />
-                        }
-                    />
-                    <Route
-                        path="/classrooms/:teacherId/student"
-                        element={
-                            <StudentsPage
-                                teachers={teachers.data}
-                                students={students.data}
-                                onAddStudent={addStudent}
-                            />
-                        }
-                    />
-                    <Route
-                        path="/students/:studentId"
-                        element={
-                            <StudentDetailsPage
-                                students={students.data}
-                                teachers={teachers.data}
-                                onUpdateLaps={updateStudentLaps}
-                            />
-                        }
-                    />
-                    <Route
-                        path="/progress"
-                        element={
-                            <ProgressPage
-                                students={students.data}
-                                prizes={prizes.data}
-                                achievements={achievements}
-                            />
-                        }
-                    />
-                </Routes>
-            </main>
-        </div>
-    );
+	const addStudent = () => {
+
+	};
+
+	const updateStudentLaps = () => {
+
+	};
+
+	return (
+		<div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+			<Navigation />
+			<main className="container mx-auto px-4 py-8">
+				<Routes>
+					<Route
+						path="/"
+						element={
+							<HomePage
+								students={students.data}
+							/>}
+					/>
+					<Route
+						path="/classrooms"
+						element={
+							<ClassroomsPage
+								teachers={teachers.data}
+								students={students.data}
+							/>
+						}
+					/>
+					<Route
+						path="/classrooms/:teacherId/student"
+						element={
+							<StudentsPage
+								teachers={teachers.data}
+								students={students.data}
+								onAddStudent={addStudent}
+							/>
+						}
+					/>
+					<Route
+						path="/students/:studentId"
+						element={
+							<StudentDetailsPage
+								students={students.data}
+								teachers={teachers.data}
+								onUpdateLaps={updateStudentLaps}
+							/>
+						}
+					/>
+					<Route
+						path="/progress"
+						element={
+							<ProgressPage
+								students={students.data}
+								prizes={prizes.data}
+								achievements={achievements}
+							/>
+						}
+					/>
+				</Routes>
+			</main>
+		</div>
+	);
 }
 
 export default Container;

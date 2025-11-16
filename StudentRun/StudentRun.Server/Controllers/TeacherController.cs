@@ -62,7 +62,7 @@ namespace StudentRun.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post(PostTeacherDto teacher)
+        public async Task<ActionResult> Post(GetTeacherDto teacher)
         {
             if (teacher == null) { return BadRequest(); }
 
@@ -82,7 +82,7 @@ namespace StudentRun.Server.Controllers
                 return StatusCode(500, e);
             }
 
-            return CreatedAtAction(nameof(Get), new {id = newTeacher.Id}, teacher);
+            return CreatedAtAction(nameof(Get), new {id = newTeacher.Id}, newTeacher);
         }
 
     }
