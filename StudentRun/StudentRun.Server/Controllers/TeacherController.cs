@@ -61,8 +61,37 @@ namespace StudentRun.Server.Controllers
             return Ok(students);
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Post(GetTeacherDto teacher)
+		[HttpPost("{teacherId}/student")]
+		public async Task<ActionResult> CreateStudentForTeacher(long teacherId, PostStudentDto student)
+		{
+			if (student == null) { return BadRequest(); }
+
+			Student newStudent = new()
+			{
+				FirstName = student.FirstName,
+				LastName = student.LastName,
+				Grade = student.Grade,
+				Laps = student.Laps,
+				Miles = student.Miles,
+				JoinedDate = DateTime.UtcNow,
+				TeacherId = teacherId,
+			};
+			try
+			{
+				_context.Students.Add(newStudent);
+				await _context.SaveChangesAsync();
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine("Error Saving to Database\n\n" + e);
+				return StatusCode(500, e);
+			}
+
+			return CreatedAtAction(nameof(Get), new { id = newStudent.Id }, newStudent);
+		}
+
+		[HttpPost]
+        public async Task<ActionResult> CreateTeacher(PostTeacherDto teacher)
         {
             if (teacher == null) { return BadRequest(); }
 

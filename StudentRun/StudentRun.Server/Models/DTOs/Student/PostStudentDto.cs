@@ -11,7 +11,5 @@
         public int Laps { get; set; } = 0;
 
         public double Miles { get; set; } = 0;
-
-        public long? TeacherId { get; set; }
     }
 }

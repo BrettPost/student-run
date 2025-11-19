@@ -6,7 +6,6 @@ import { Plus, Users, GraduationCap, ArrowRight, Edit, Trash2 } from 'lucide-rea
 const ClassroomsPage = ({ teachers, students }) => {
 	const queryClient = useQueryClient();
 	const [showAddForm, setShowAddForm] = useState(false);
-	//const [classrooms, setClassrooms] = useState(teachers);
 	const [formData, setFormData] = useState({
 		firstName: '',
 		lastName: '',
@@ -21,12 +20,6 @@ const ClassroomsPage = ({ teachers, students }) => {
 		e.preventDefault();
 		if (formData.firstName && formData.lastName && formData.grade) {
 			addTeacher.mutate(formData);
-
-			//setClassrooms([ ...classrooms, addTeacher.data ]);
-			//setFormData({ firstName: '', lastName: '', grade: '' });
-			//setShowAddForm(false);
-			
-			
 		}
 	};
 
@@ -114,7 +107,7 @@ const ClassroomsPage = ({ teachers, students }) => {
 			setFormData({ firstName: '', lastName: '', grade: '' });
 		},
 
-		onSettled: (_data, error, _variables, _context) => {
+		onSettled: (_data, error) => {
 			console.log("Syncing with server state");
 
 			queryClient.invalidateQueries({ queryKey: ['teachers'] });
@@ -144,29 +137,24 @@ const ClassroomsPage = ({ teachers, students }) => {
 					<span>Add Teacher</span>
 				</button>
 			</div>
-			<div className="bg-green-600">
-				{addTeacher.isSuccess &&
-					<div>
-						<p>Teacher Added!</p>
-					</div>
-				}
-				{addTeacher.isError &&
-					<div>
-						<p>PROBLEM WITH TEACH</p>
-					</div>
-				}
-				{addTeacher.isPending &&
-					<div>
-						<p>Waiting</p>
-					</div>
-				}
-			</div>
-			
 
 			{/* Add Teacher Form */}
 			{showAddForm && (
 				<div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
 					<h3 className="text-xl font-semibold text-gray-900 mb-4">Add New Teacher</h3>
+					{addTeacher.isSuccess && (
+						<section className="my-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded">
+							<strong>{addTeacher.data.lastName} added successfully</strong>
+						</section>
+					)}
+					{addTeacher.isError && (
+						<section className="my-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+							<strong>Failed to add new teacher</strong>
+							Error:{' '}
+							{addTeacher.error?.message ||
+								'Failed to add product'}
+						</section>
+					)}
 					<form onSubmit={handleSubmit} className="space-y-4">
 						<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 							<div>
@@ -223,6 +211,7 @@ const ClassroomsPage = ({ teachers, students }) => {
 							<button
 								type="submit"
 								className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition-colors font-semibold"
+								disabled={ addTeacher.isPending }
 							>
 								Add Teacher
 							</button>

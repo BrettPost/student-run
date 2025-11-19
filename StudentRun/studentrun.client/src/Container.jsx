@@ -69,33 +69,6 @@ function Container() {
 	//        .catch(err => console.error(`Error: ${err}`))
 	//})
 
-	//const addTeacher = async (teacherData) => {
-	//    try {
-	//        const response = await fetch('/teacher', {
-	//            method: 'POST',
-	//            headers: {
-	//                'Content-Type': 'application/json',
-	//            },
-	//            body: JSON.stringify(teacherData),
-	//        });
-	//        if (response.ok) {
-	//            //loadTeachers();
-	//        }
-	//    } catch (error) {
-	//        console.error('Error adding teacher:', error);
-	//    }
-	//};
-
-
-
-	const addStudent = () => {
-
-	};
-
-	const updateStudentLaps = () => {
-
-	};
-
 	return (
 		<div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
 			<Navigation />
@@ -123,7 +96,6 @@ function Container() {
 							<StudentsPage
 								teachers={teachers.data}
 								students={students.data}
-								onAddStudent={addStudent}
 							/>
 						}
 					/>
@@ -133,7 +105,6 @@ function Container() {
 							<StudentDetailsPage
 								students={students.data}
 								teachers={teachers.data}
-								onUpdateLaps={updateStudentLaps}
 							/>
 						}
 					/>

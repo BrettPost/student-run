@@ -41,7 +41,7 @@ namespace StudentRun.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post(PostPrizeDto prize)
+        public async Task<ActionResult> CreatePrize(PostPrizeDto prize)
         {
             if (prize == null) { return BadRequest(); }
 
@@ -63,7 +63,7 @@ namespace StudentRun.Server.Controllers
                 return StatusCode(500, e);
             }
 
-            return CreatedAtAction(nameof(Get), new { id = newPrize.Id }, prize);
+            return CreatedAtAction(nameof(Get), new { id = newPrize.Id }, newPrize);
         }
     }
 }
