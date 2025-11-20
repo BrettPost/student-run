@@ -62,13 +62,6 @@ function Container() {
 		return <span>Prize Error: {prizes.isError.message}</span>
 	}
 
-	//const loadStudents = (id) => useQuery({
-	//    queryKey: [`studentsFromTeacher-${id}`],
-	//    queryFn: () => fetch(`/teacher/${id}/student`)
-	//        .then(res => res.json())
-	//        .catch(err => console.error(`Error: ${err}`))
-	//})
-
 	return (
 		<div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
 			<Navigation />
